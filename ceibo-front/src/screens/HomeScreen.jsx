@@ -81,13 +81,6 @@ export default function HomeScreen() {
     >
       <Navbar></Navbar>
       <ScrollView>
-        {plans[0] && (
-          <MainEvent
-            plan={plans[0]}
-            title="Patrocinado"
-            onPress={handlePress}
-          />
-        )}
         <SwiperComponent
           plans={plans}
           onPress={handlePress}
@@ -127,7 +120,6 @@ export default function HomeScreen() {
             )}
           </View>
         )}
-        <View style={{ marginBottom: 30 }}></View>
       </ScrollView>
     </LinearGradient>
   );

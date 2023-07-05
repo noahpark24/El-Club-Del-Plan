@@ -17,6 +17,5 @@ export const getUserFriends = async () => {
     }
   } catch (error) {
     console.log(error);
-    return [];
   }
 };

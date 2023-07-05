@@ -22,6 +22,10 @@
     },
     "version": "1.0.0",
     "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "package": "com.auth.ceiboFront"
+    },
     "plugins": [
       [
         "expo-image-picker",
@@ -32,7 +36,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "5522a113-7eb0-410c-9860-359118306f85"
+        "projectId": "92aab027-2598-49ec-83aa-71529daad89b"
       }
     }
   },

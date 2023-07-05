@@ -10,13 +10,15 @@ import { getUser } from "../services/getUser";
 import { getUserPlans } from "../services/getUserPlans";
 // Components
 import GoogleSignInButton from "../components/GoogleSignInButton";
+import { GenericButton } from "../components/GenericButton";
 import { GenericInput } from "../components/GenericInput";
 import { styles } from "../styles/loginScreenStyles";
 import { setPlanHistory, setUser, setUserPlans } from "../state/user";
 import { API_URL } from "../services/urls";
+import refetchData from "../services/refetchData";
 import { Navbar } from "../components/Navbar";
 import { getPlanHistory } from "../services/getPlanHistory";
-import iniciaSesion from "../assets/iniciaSesion.png";
+import iniciaSesion from '../assets/iniciaSesion.png'
 import { Image } from "react-native";
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -76,15 +78,20 @@ export default function LoginScreen() {
             secureTextEntry={true}
           />
           <View style={styles.inputContainer}>
+         
             <View style={styles.logoutContainer}>
               <TouchableOpacity onPress={handleLogin}>
                 <Image style={styles.logo} source={iniciaSesion} />
               </TouchableOpacity>
             </View>
+            
 
             <Text style={styles.text} onPress={handleSignup}>
               ¿No tienes cuenta? Crea una
             </Text>
+
+          <GoogleSignInButton />
+          
           </View>
         </View>
       </ScrollView>

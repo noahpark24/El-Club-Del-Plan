@@ -19,12 +19,12 @@ export const styles = StyleSheet.create({
     marginBottom: 23,
   },
   logoutContainer: {
-  
-   
     alignItems: "center",
     marginBottom: 20,
     marginTop: 20,
   },
-  
-
+  wrapper: {
+    flex: 1,
+    paddingBottom: 20,
+  },
 });

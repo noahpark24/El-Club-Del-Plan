@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import StarRating from "react-native-star-rating-widget";
 import { rateEvent } from "../services/rateEvent";
 import { View, Text, Alert } from "react-native";
-import { styles } from "../styles/PlanDetails";
+import { styles } from "../styles/PlanDetailsStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { API_URL } from "../services/urls";
@@ -42,6 +42,7 @@ const Rating = ({ plan }) => {
       const data = await rateEvent(e, plan._id);
       const newRating = await fetchRating();
       setRating(newRating);
+      console.log("rating data", data);
       Alert.alert("Exito", data.message);
     }
   };

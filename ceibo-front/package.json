@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start -c",
-    "build": "eas build -p android --profile preview",
+    "build": "eas build -p android --profile preview --local",
     "ios": "expo run:ios",
     "web": "expo start --web"
   },

@@ -7,7 +7,7 @@ import { getUser } from "../services/getUser";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { setUser, setUserPlans } from "../state/user";
-import { API_URL } from "../services/urls";
+import { API_URL, expoClientId, iosClientId, androidClientId } from "@env";
 import iniciarConGoogle from "../assets/iniciarConGoogle.png";
 
 import * as ReactNative from "react-native";
@@ -121,18 +121,21 @@ const GoogleSignInButton = () => {
     }
   };
   return (
-    <ReactNative.SafeAreaView style={{ width: "100%", alignItems: "center" }}>
-      <ReactNative.View style={styles.googleContainer}>
-        <ReactNative.TouchableOpacity
-          disabled={!request}
-          onPress={onPressButton}
-        >
-          <ReactNative.Image
-            style={styles.logoGoogle}
-            source={iniciarConGoogle}
-          />
-        </ReactNative.TouchableOpacity>
-      </ReactNative.View>
+    <ReactNative.SafeAreaView style={{width:'100%', alignItems: "center",}}>
+     
+        <ReactNative.View style={styles.googleContainer}>
+          <ReactNative.TouchableOpacity
+
+            disabled={!request}
+            onPress={onPressButton}
+          >
+            <ReactNative.Image
+              style={styles.logoGoogle}
+              source={iniciarConGoogle}
+            />
+          </ReactNative.TouchableOpacity>
+        </ReactNative.View>
+     
     </ReactNative.SafeAreaView>
   );
 };

@@ -4,6 +4,8 @@ export const styles = StyleSheet.create({
   image: {
     width: 250,
     height: 110,
+    marginTop: "5%",
+    marginBottom: "5%",
   },
   categoryContainer: {
     alignItems: "center",
@@ -26,9 +28,6 @@ export const styles = StyleSheet.create({
   },
 
   container: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
     alignItems: "center",
     justifyContent: "center",
     color: "white",
@@ -170,5 +169,26 @@ export const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: "cover",
+  },
+  buttonNavbar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: "5%",
+    paddingHorizontal: 16,
+  },
+  leftButton: {
+    alignSelf: "flex-start",
+  },
+  rightButton: {
+    alignSelf: "flex-end",
+  },
+  privateEvent: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: "4%",
+    paddingRight: "5%",
+    borderBottomWidth: 1,
+    borderBottomColor: "white",
+    marginTop: "1%",
   },
 });

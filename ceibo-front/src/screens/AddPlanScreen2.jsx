@@ -23,7 +23,6 @@ import { useNavigation } from "@react-navigation/native";
 import { getCategories } from "../services/getCategories";
 import ModalSelector from "react-native-modal-selector";
 import { Feather } from "@expo/vector-icons";
-import refetchData from "../services/refetchData";
 
 export default function AddPlanScreen2({ route }) {
   const { title, description, location, event_date, path } = route.params;
@@ -39,8 +38,6 @@ export default function AddPlanScreen2({ route }) {
   const [link_to_pay, setLink_to_pay] = useState("");
 
   const navigation = useNavigation();
-
-  const { toggleRefetch } = refetchData();
 
   useEffect(() => {
     getCategories().then((data) => {
@@ -71,7 +68,7 @@ export default function AddPlanScreen2({ route }) {
           imageUrl = res.data.imageUrl;
         }
 
-        const newEvent = await axios.post(
+        await axios.post(
           `${API_URL}/api/events/`,
           {
             title,
@@ -102,6 +99,8 @@ export default function AddPlanScreen2({ route }) {
     } catch (error) {
       if (error.response) {
         Alert.alert("Error", error.response.data);
+      } else {
+        Alert.alert("Error", "Error de red");
       }
     }
   };

@@ -1,2 +1,2 @@
-const API_URL = "https://club-del-plan.onrender.com";
+import { API_URL } from "@env";
 module.exports = { API_URL };

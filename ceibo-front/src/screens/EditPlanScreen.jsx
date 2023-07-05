@@ -11,9 +11,8 @@ import { useSelector } from "react-redux";
 import { LinearGradient } from "expo-linear-gradient";
 import LoginScreen from "./LoginScreen";
 import ChevronImg from "../assets/images/chevron.png";
+import { AntDesign, EvilIcons, Feather } from "@expo/vector-icons";
 // Components
-import { ProfilePicture } from "../components/ProfilePicture";
-import { GenericButton } from "../components/GenericButton";
 import { styles } from "../styles/editPlanStyles";
 import { ChangeData } from "../components/ChangeData";
 import { Navbar } from "../components/Navbar";
@@ -22,11 +21,12 @@ import { useNavigation } from "@react-navigation/native";
 import { getCategories } from "../services/getCategories";
 import ModalSelector from "react-native-modal-selector";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CheckBox } from "react-native-elements";
+// import { CheckBox } from "react-native-elements";
 import axios from "axios";
 import { API_URL } from "../services/urls";
 import refetchData from "../services/refetchData";
 import { removePlan } from "../state/plans";
+import { ProfileText } from "../components/ProfileText";
 
 export default function EditPlanScreen() {
   const plan = useSelector((state) => state.selectedPlan);
@@ -112,21 +112,57 @@ export default function EditPlanScreen() {
 
   const handleRedirect = () => {
     triggerRefetch();
-    navigation.navigate("HomeScreen");
+    navigation.navigate("PlanDetail");
   };
 
   return (
-    <LinearGradient
-      colors={["#000", "#7D0166"]}
-      start={[0, 0]}
-      end={[1, 1]}
-      style={styles.container}
-    >
+    <LinearGradient colors={["#000", "#7D0166"]} start={[0, 0]} end={[1, 1]}>
       <Navbar />
+      <View style={styles.buttonNavbar}>
+        <TouchableOpacity onPress={handleRedirect} style={styles.leftButton}>
+          <AntDesign name="back" size={30} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleRedirect} style={styles.rightButton}>
+          <EvilIcons name="trash" size={45} color="red" />
+        </TouchableOpacity>
+      </View>
+
       {plan._id ? (
         <ScrollView>
+          <Text style={[styles.text, { marginTop: "3%", paddingBottom: "0%" }]}>
+            Imagen:
+          </Text>
+          <TouchableOpacity
+            style={[
+              styles.container,
+              { borderBottomColor: "white", borderBottomWidth: 1 },
+            ]}
+            onPress={selectImage}
+          >
+            {imageUrl && (
+              <Image
+                source={{
+                  uri: imageUrl,
+                }}
+                style={styles.image}
+              />
+            )}
+          </TouchableOpacity>
+          <View style={styles.privateEvent}>
+            <Text style={styles.text}>Evento Privado?</Text>
+            <View style={{ marginTop: "2%" }}>
+              {checked ? (
+                <TouchableOpacity onPress={handleCheckBoxToggle}>
+                  <Feather name="lock" size={24} color="white" />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={handleCheckBoxToggle}>
+                  <Feather name="unlock" size={24} color="white" />
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
           <View style={styles.container}>
-            <ProfilePicture imageSource={"profile_img"} />
             <ChangeData
               keyboardType="default"
               baseData={plan?.title}
@@ -248,7 +284,7 @@ export default function EditPlanScreen() {
               cancelText="Cancelar"
             >
               <Text style={styles.categoryContainer} value={category}>
-                {category}{" "}
+                {category}
                 <Image
                   source={ChevronImg}
                   resizeMode="contain"
@@ -256,20 +292,6 @@ export default function EditPlanScreen() {
                 />
               </Text>
             </ModalSelector>
-
-            <View>
-              <CheckBox
-                title="¿Evento privado?"
-                checked={checked}
-                containerStyle={{
-                  backgroundColor: "transparent",
-                  borderWidth: 0,
-                }}
-                textStyle={{ color: "white" }}
-                checkedColor="white"
-                onPress={handleCheckBoxToggle}
-              />
-            </View>
 
             <ChangeData
               keyboardType="default"
@@ -280,19 +302,7 @@ export default function EditPlanScreen() {
               styles={styles}
             />
 
-            <TouchableOpacity style={styles.container} onPress={selectImage}>
-              {imageUrl && (
-                <Image
-                  source={{
-                    uri: imageUrl,
-                  }}
-                  style={styles.image}
-                />
-              )}
-            </TouchableOpacity>
-
-            <View style={{ marginBottom: "5%" }} />
-            <GenericButton onPress={handleRedirect} text="Volver" />
+            <View style={{ marginBottom: "40%" }} />
           </View>
         </ScrollView>
       ) : (

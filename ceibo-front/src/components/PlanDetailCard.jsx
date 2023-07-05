@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, View, Text, Image, ScrollView, Alert } from "react-native";
+import {
+  Dimensions,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getUserPlans } from "../services/getUserPlans";
-import { styles } from "../styles/PlanDetails";
+import { styles } from "../styles/PlanDetailsStyles";
 import { useSelector, useDispatch } from "react-redux";
 import { setUserPlans } from "../state/user";
 import axios from "axios";
@@ -14,11 +22,11 @@ import MultipleDropdown from "./MultipleDropdown";
 import { useNavigation } from "@react-navigation/core";
 import refetchData from "../services/refetchData";
 import RadioButton from "./RadioButton";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, Feather } from "@expo/vector-icons";
 import { getUserFriends } from "../services/getUserFriends";
-import fecha from'../assets/fecha.png'
-import descripcion from '../assets/descripcion.png'
-import organizador from '../assets/organizador.png'
+import fecha from "../assets/fecha.png";
+import descripcion from "../assets/descripcion.png";
+import organizador from "../assets/organizador.png";
 
 export const PlanDetailCard = () => {
   const dispatch = useDispatch();
@@ -191,9 +199,9 @@ export const PlanDetailCard = () => {
             }}
           />
           <View style={styles.detailsContainer}>
-           
-
-            <View>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               {plan.ended ? (
                 <View>
                   <Text style={styles.subtitle}>
@@ -205,88 +213,82 @@ export const PlanDetailCard = () => {
                     user.history.some((item) => item._id == plan._id) &&
                     plan.organizer &&
                     plan.ended && <Rating plan={plan} />}
+                  <View style={styles.pContainer}>
+                    <Text style={styles.p}>
+                      {plan?.organizer?.rating?.toFixed(2)}/5.00{" "}
+                      <Entypo name="star" size={20} color={"#fdd835"} />
+                    </Text>
+                  </View>
                 </View>
               ) : (
+                <View style={styles.date}>
+                  <Image style={styles.logo} source={fecha} />
+                  <Text style={styles.text2}>{formattingDate}</Text>
+                </View>
+              )}
+              {canEdit && !plan.ended && (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("EditPlan");
+                  }}
+                  style={{ alignSelf: "flex-start" }}
+                >
+                  <Feather name="edit" size={28} color="white" />
+                </TouchableOpacity>
+              )}
+            </View>
+            <View style={{ flexDirection: "row" }}>
+              <View style={[styles.orgCont, { alignSelf: "flex-start" }]}>
+                <Image style={styles.logo5} source={organizador} />
+                <Text style={styles.text6}>{plan?.organizer?.username}</Text>
+                <View style={{ right: "-300%", justifyContent: "center" }}>
+                  {plan?.private ? (
+                    <Text style={{ color: "white" }}>
+                      Privado {<Feather name="lock" size={24} color="white" />}
+                    </Text>
+                  ) : (
+                    <Text style={{ color: "white" }}>
+                      Público{" "}
+                      {<Feather name="unlock" size={28} color="white" />}
+                    </Text>
+                  )}
+                </View>
+              </View>
+            </View>
+            <Image style={styles.logo3} source={descripcion} />
+            <Text style={styles.text3}>{plan.description}</Text>
+            <View>
+              {user._id && !plan.ended && !canEdit && (
                 <View>
-                  {user._id && (
-                    <View style={styles.buttonContainer}>
+                  {loading ? (
+                    <GenericButton
+                      text={"Cargando..."}
+                      customStyle={[styles.btn, styles.loadingBtn]}
+                    />
+                  ) : (
+                    <>
                       {!user.plans?.some(
                         (userPlan) => userPlan._id === plan._id
                       ) ? (
-                        <>
-                          {!loading ? (
-                            <GenericButton
-                              text={"+"}
-                              onPress={handleEnroll}
-                              customStyle={styles.btn}
-                            />
-                          ) : (
-                            <GenericButton
-                              text={"..."}
-                              customStyle={styles.btn}
-                            />
-                          )}
-                        </>
+                        <GenericButton
+                          text={"Participar"}
+                          onPress={handleEnroll}
+                          customStyle={styles.btn}
+                        />
                       ) : (
-                        <>
-                          {!loading ? (
-                            <GenericButton
-                              text={"x"}
-                              customStyle={styles.btn}
-                              onPress={() => handleStopParticipating(plan._id)}
-                            />
-                          ) : (
-                            <GenericButton
-                              text={"..."}
-                              customStyle={styles.btn}
-                            />
-                          )}
-                        </>
+                        <GenericButton
+                          text={"Dejar de Participar"}
+                          onPress={() => handleStopParticipating(plan._id)}
+                          customStyle={styles.btn}
+                        />
                       )}
-                    </View>
+                    </>
                   )}
                 </View>
               )}
             </View>
-           
-            <View style={styles.pContainer}>
-              <Text style={styles.p}>
-                {plan?.organizer?.rating?.toFixed(2)}/5.00{" "}
-                <Entypo name="star" size={20} color={"#fdd835"} />
-              </Text>
-            </View>
- <View style={styles.date}>
-              
-              <Image style={styles.logo} source={fecha} />
-              <Text style={styles.text2}>{formattingDate}</Text>
-            </View>
-           
-            <View style={styles.orgCont}>
-             <Image style={styles.logo5} source={organizador} /> 
-             
-             </View>
-             <Text style={styles.text6}>{plan?.organizer?.username}</Text>
-            <Image style={styles.logo3} source={descripcion} />
-            <Text style={styles.text3}>{plan.description}</Text>
-            {user._id && <Comments />}
-            {canEdit && user._id ? (
-              <View>
-                <View style={styles.input}>
-                  <GenericButton
-                    text={"Editar evento"}
-                    onPress={() => {
-                      navigation.navigate("EditPlan");
-                    }}
-                  />
-                </View>
-                <View style={styles.input}>
-                  <GenericButton
-                    text={"Borrar evento"}
-                    onPress={handleDelete}
-                  />
-                </View>
-              </View>
-            ) : (
+            <Comments />
+            {canEdit && !plan.ended && (
               <>
                 <View style={styles.input}>
                   <MultipleDropdown
@@ -311,7 +313,7 @@ export const PlanDetailCard = () => {
                 {invited && invited[0] && (
                   <GenericButton
                     text={"Invitar"}
-                    customStyle={{ marginHorizontal: 50 }}
+                    customStyle={[styles.input, { marginLeft: "10%" }]}
                     onPress={handleInvite}
                   />
                 )}

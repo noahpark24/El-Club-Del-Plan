@@ -4,7 +4,7 @@ const windowWidth = Dimensions.get("window").width;
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: "10%",
 
     alignItems: "center",
     borderBottomColor: "white",
