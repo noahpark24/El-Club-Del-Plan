@@ -1,6 +1,8 @@
 # Repositorio del Back
 
-Este repositorio esta clonado del original que fue hecho en equipo durante mi practica profesional con Ceibo Digital : https://github.com/alba-97/ceibo-back
+Este repositorio esta clonado del original que fue hecho en equipo durante mi practica profesional con Ceibo Digital 
+
+link del repo original : https://github.com/alba-97/ceibo-back
 
 Documentacion de la API :
 http://localhost:(numero_de_puerto)/api-doc/
