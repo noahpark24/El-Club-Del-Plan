@@ -15,3 +15,8 @@ El Proyecto Se Desarrollo En Equipo De 4 Desarrolladores A Lo Largo De 4 Sprints
 ## Landing Page De La App 
 Para acceder a la landing page hacer click [aqui](https://elclubdelplan.netlify.app/)
 
+## Capturas De Las Vistas Del Proyecto
+
+| <img src="./assets/HOME.jpeg" alt="Captura de la página de inicio" width="300"> | <img src="./assets/busquedas.jpeg" alt="Captura de la página de búsqueda" width="300"> | <img src="./assets/Crear Plan.jpeg" alt="Captura de la página de Crear Plan" width="300"> | <img src="./assets/Crear Plan 2.jpeg" alt="Captura de la página de Crear Plan 2" width="300"> | <img src="./assets/Plan creado con exito.jpeg" alt="Captura de Plan creado con exito" width="300"> | <img src="./assets/Plan details.jpeg" alt="Captura de la página de detalles del plan" width="300"> | <img src="./assets/Contactos.jpeg" alt="Captura de la página de contactos" width="300"> | <img src="./assets/Agregar Amigos.jpeg" alt="Captura de la página de Agregar Amigos" width="300"> | <img src="./assets/Vista Perfil.jpeg" alt="Captura de la página de Perfil" width="300"> | 
+
+
